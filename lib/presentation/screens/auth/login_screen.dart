@@ -4,6 +4,7 @@ import 'package:ecom_app/logic/cubit/user_cubit/user_state.dart';
 import 'package:ecom_app/presentation/screens/auth/providers/login_provider.dart';
 import 'package:ecom_app/presentation/screens/auth/signup_screen.dart';
 import 'package:ecom_app/presentation/screens/home/home_screen.dart';
+import 'package:ecom_app/presentation/screens/splash/splash_screen.dart';
 import 'package:ecom_app/presentation/widgets/link_button.dart';
 import 'package:ecom_app/presentation/widgets/primary_button.dart';
 import 'package:ecom_app/presentation/widgets/primary_textfield.dart';
@@ -30,12 +31,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<LoginProvider>(context);
-    return BlocListener<UserCubit,UserState>(
+    return BlocListener<UserCubit, UserState>(
       listener: (context, state) {
-        
-        if(state is UserLoggedInState){
-          Navigator.popUntil(context, (route) => route.isFirst);
-          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+        if (state is UserLoggedInState) {
+          Navigator.pushReplacementNamed(context, SplashScreen.routeName);
         }
       },
       child: Scaffold(
@@ -59,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   "Log In",
                   style: TextStyles.h2,
                 ),
-    
+
                 const SizedBoxSpace(),
                 (provider.error != "")
                     ? Text(
@@ -73,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value == null || value.trim().isEmpty) {
                       return "Email address required";
                     }
-    
+
                     if (!EmailValidator.validate(value.trim())) {
                       return "Invalid email address";
                     }
