@@ -34,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<UserCubit, UserState>(
       listener: (context, state) {
         if (state is UserLoggedInState) {
+          // Navigator.popUntil(context, (route) => route.isFirst);
           Navigator.pushReplacementNamed(context, SplashScreen.routeName);
         }
       },

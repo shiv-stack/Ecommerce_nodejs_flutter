@@ -62,6 +62,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   style: TextStyles.h2,
                 ),
                 const SizedBoxSpace(),
+                 const Divider(),
                 BlocBuilder<CartCubit, CartState>(builder: (context, state) {
                   bool isInCart = (BlocProvider.of<CartCubit>(context)
                       .cartContains(widget.productModel));

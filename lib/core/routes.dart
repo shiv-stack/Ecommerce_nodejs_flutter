@@ -11,6 +11,7 @@ import 'package:ecom_app/presentation/screens/home/home_screen.dart';
 import 'package:ecom_app/presentation/screens/products/category_product.dart';
 import 'package:ecom_app/presentation/screens/products/products_details_screen.dart';
 import 'package:ecom_app/presentation/screens/splash/splash_screen.dart';
+import 'package:ecom_app/presentation/screens/user/edit_profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +39,8 @@ class Routes {
         return CupertinoPageRoute(builder: (context) => const ErrorScreen());
       case CartScreen.routeName:
         return CupertinoPageRoute(builder: (context) => const CartScreen());
+        case EditProfileScreen.routeName:
+        return CupertinoPageRoute(builder: (context) => const EditProfileScreen());
       case categoryProduct.routeName:
         return CupertinoPageRoute(
             builder: (context) => BlocProvider(

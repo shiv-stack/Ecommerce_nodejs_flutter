@@ -6,7 +6,6 @@ import 'package:ecom_app/logic/cubit/category_cubit/category_cubit.dart';
 import 'package:ecom_app/logic/cubit/products_cubit/products_cubit.dart';
 import 'package:ecom_app/logic/cubit/user_cubit/user_cubit.dart';
 
-
 import 'package:ecom_app/presentation/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

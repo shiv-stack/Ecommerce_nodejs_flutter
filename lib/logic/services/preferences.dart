@@ -20,7 +20,7 @@ class Preferences {
     };
   }
 
-  static Future<void> clearPref() async {
+  static Future<void> clear() async {
     SharedPreferences instance = await SharedPreferences.getInstance();
     await instance.clear();
   }

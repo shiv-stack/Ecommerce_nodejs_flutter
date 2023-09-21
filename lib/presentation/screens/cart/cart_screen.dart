@@ -91,7 +91,8 @@ class _CartScreenState extends State<CartScreen> {
                               BlocProvider.of<CartCubit>(context)
                                   .removeCart(item.product!);
                             },
-                            text: "Remove")
+                            text: "Remove"),
+                             const Divider(),
                       ],
                     ),
                     trailing: Container(
@@ -105,6 +106,7 @@ class _CartScreenState extends State<CartScreen> {
                         },
                       ),
                     ),
+                     
                   );
                 },
               ),
@@ -129,6 +131,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                     ],
                   )),
+                   
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 2.5,
                     child: CupertinoButton(

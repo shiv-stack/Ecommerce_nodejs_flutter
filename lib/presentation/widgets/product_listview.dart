@@ -52,14 +52,18 @@ class ProductListView extends StatelessWidget {
                         style: TextStyles.h3,
                       ),
                       const SizedBoxSpace(),
+                       const Divider()
                     ],
                   ),
                 ),
                 IconButton(
                     onPressed: () {}, icon: const Icon(CupertinoIcons.cart)),
               ],
+               
             ),
+             
           );
+         
         });
   }
 }

@@ -3,9 +3,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecom_app/core/ui.dart';
 import 'package:ecom_app/logic/cubit/cart_cubit/cart_cubit.dart';
 import 'package:ecom_app/logic/cubit/cart_cubit/cart_state.dart';
+import 'package:ecom_app/logic/cubit/user_cubit/user_cubit.dart';
+import 'package:ecom_app/logic/cubit/user_cubit/user_state.dart';
 import 'package:ecom_app/presentation/screens/home/category_screen.dart';
 import 'package:ecom_app/presentation/screens/home/profile_screen.dart';
 import 'package:ecom_app/presentation/screens/home/userfeed_screen.dart';
+import 'package:ecom_app/presentation/screens/splash/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -33,46 +36,53 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {},
-            icon: CachedNetworkImage(
-              imageUrl: imurl,
-            )),
-        title: Center(
-          child: const Text(
-            "Apna Bazaar",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    return BlocListener<UserCubit,UserState>(
+      listener: (context, state) {
+        if(state is UserLoggedOutState){
+          Navigator.pushReplacementNamed(context,SplashScreen.routeName);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {},
+              icon: CachedNetworkImage(
+                imageUrl: imurl,
+              )),
+          title: Center(
+            child: const Text(
+              "Apna Bazaar",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
           ),
+          actions: [
+            IconButton(onPressed: () {
+              Navigator.pushNamed(context, CartScreen.routeName);
+            }, icon: BlocBuilder<CartCubit, CartState>(builder: (context, state) {
+              return Badge(
+                showBadge: (state is CartLoadingState)? false :true,
+               
+                
+                  badgeContent: Text("${state.items.length}"),
+                  child: Icon(CupertinoIcons.cart_fill));
+            }))
+          ],
         ),
-        actions: [
-          IconButton(onPressed: () {
-            Navigator.pushNamed(context, CartScreen.routeName);
-          }, icon: BlocBuilder<CartCubit, CartState>(builder: (context, state) {
-            return Badge(
-              showBadge: (state is CartLoadingState)? false :true,
-             
-              
-                badgeContent: Text("${state.items.length}"),
-                child: Icon(CupertinoIcons.cart_fill));
-          }))
-        ],
+        body: screens[currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: currentIndex,
+            onTap: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.category), label: "Category"),
+              BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+            ]),
       ),
-      body: screens[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.category), label: "Category"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-          ]),
     );
   }
 }

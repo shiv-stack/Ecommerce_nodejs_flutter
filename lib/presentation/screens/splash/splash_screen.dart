@@ -24,11 +24,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void goTONextScreen() {
     UserState userState = BlocProvider.of<UserCubit>(context).state;
 
-    if (userState is UserInitialState) {
-      Navigator.popUntil(context, (route) => route.isFirst);
-      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-    }
-
     if (userState is UserLoggedInState) {
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.pushReplacementNamed(context, HomeScreen.routeName);
@@ -39,7 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.pushReplacementNamed(context, ErrorScreen.routeName);
     } else {
-      log("erorr -----");
+      log("erorr -----aara");
+      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
     }
   }
 

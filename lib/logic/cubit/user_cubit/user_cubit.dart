@@ -62,7 +62,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   void signOut() async {
-    await Preferences.clearPref();
+    await Preferences.clear();
     emit(UserLoggedOutState());
   }
 }
