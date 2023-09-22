@@ -9,7 +9,7 @@ class PrimaryButton extends StatelessWidget {
   final Function()? onPressed;
   final Color? color;
   const PrimaryButton(
-      {super.key, required this.text, this.onPressed, this.color});
+      {super.key, required this.text, this.onPressed, this.color, });
 
   @override
   Widget build(BuildContext context) {

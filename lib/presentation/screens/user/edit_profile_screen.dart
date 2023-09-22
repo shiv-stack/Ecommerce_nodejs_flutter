@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:ecom_app/core/ui.dart';
 import 'package:ecom_app/data/models/user/user_model.dart';
 import 'package:ecom_app/logic/cubit/user_cubit/user_cubit.dart';
@@ -8,6 +11,7 @@ import 'package:ecom_app/presentation/widgets/primary_textfield.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -28,7 +32,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
         if (state is UserLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Colors.green,
+            ),
           );
         }
         if (state is UserErrorState) {
@@ -37,7 +43,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           );
         }
         if (state is UserLoggedInState) {
-          return editProfile(state.userModel);
+          return editProfile(
+            state.userModel,
+          );
         }
 
         return const Center(
@@ -95,7 +103,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             initialValue: userModel.state,
             labelText: "State"),
         const SizedBoxSpace(),
-        PrimaryButton(onPressed: () {}, text: "save")
+        PrimaryButton(
+            onPressed: () async {
+              bool success = await BlocProvider.of<UserCubit>(context)
+                  .updateUser(userModel);
+
+              if (success) {
+                Navigator.pop(context);
+              }
+            },
+            text: "save")
       ],
     );
   }

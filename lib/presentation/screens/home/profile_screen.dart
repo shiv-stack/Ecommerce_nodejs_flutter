@@ -53,6 +53,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               "${userModel.email}",
               style: TextStyles.b2,
             ),
+            Text(
+              "${userModel.phoneNumber}",
+              style: TextStyles.b2,
+            ),
             LinkButton(
                 onPressed: () {
                   Navigator.pushNamed(context, EditProfileScreen.routeName);

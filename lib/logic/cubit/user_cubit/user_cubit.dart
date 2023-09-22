@@ -3,6 +3,7 @@ import 'package:ecom_app/data/repositories/user_repositories.dart';
 import 'package:ecom_app/logic/cubit/user_cubit/user_state.dart';
 import 'package:ecom_app/logic/services/preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit() : super(UserInitialState()) {
@@ -58,6 +59,19 @@ class UserCubit extends Cubit<UserState> {
           userModel: userModel, email: email, password: password);
     } catch (ex) {
       emit(UserErrorState(ex.toString()));
+    }
+  }
+
+  Future<bool> updateUser(UserModel userModel) async {
+    emit(UserLoadingState());
+    try {
+      UserModel updatedUser = await _userRepository.updatedUser(userModel);
+      emit(UserLoggedInState(updatedUser),);
+
+      return true;
+    } catch (ex) {
+      emit(UserErrorState(ex.toString()));
+      return false;
     }
   }
 
